@@ -1,4 +1,8 @@
 const getRandomNumber = (min, max) => {
+  if(typeof min !=='number' || typeof max !== 'number' || min <= 0 || max <= 0) {
+    throw new Error('Введены некорректные данные!');
+  }
+
   //если значения равны
   if (min===max){
     return min;
@@ -13,6 +17,6 @@ const getRandomNumber = (min, max) => {
 getRandomNumber(0, 1);
 
 
-const isRightLength = (checkString, maxValue) => (typeof checkString === 'string') && (checkString.trim().length <= maxValue);
+const isRightLength = (checkString, maxValue) => typeof maxValue === 'number' && typeof checkString === 'string' && checkString.trim().length <= maxValue;
 
 isRightLength('   qwertqwert  ', 10);
