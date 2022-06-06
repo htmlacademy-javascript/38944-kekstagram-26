@@ -17,6 +17,6 @@ const getRandomNumber = (min, max) => {
 getRandomNumber(0, 1);
 
 
-const isRightLength = (checkString, maxValue) => typeof maxValue === 'number' && typeof checkString === 'string' && checkString.trim().length <= maxValue;
+const isRightLength = (str, maxLength) => typeof maxLength === 'number' && typeof str === 'string' && str.trim().length <= maxLength;
 
 isRightLength('   qwertqwert  ', 10);
