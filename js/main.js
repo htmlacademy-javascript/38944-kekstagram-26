@@ -74,7 +74,8 @@ const createComment = (value, index) => ({
   id: index + 1,
   avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
   message: getCommentMessage(),
-  name: getRandomArrayElement(AUTHORS)});
+  name: getRandomArrayElement(AUTHORS)
+});
 
 // Создаем массив комметариев
 const createCommentsList = () => Array.from({length: getRandomPositiveInteger(1, 5)}, createComment);
