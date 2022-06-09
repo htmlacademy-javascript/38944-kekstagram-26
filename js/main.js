@@ -1,6 +1,6 @@
 const checkStringLength = (str, maxLength) => typeof maxLength === 'number' && typeof str === 'string' && str.trim().length <= maxLength;
 
-checkStringLength('   qwertqwert  ', 10);
+checkStringLength('', 10);
 
 //функции от Кекса
 
@@ -88,4 +88,6 @@ const createPhoto = (value, index) => ({
   comments: createCommentsList()
 });
 
+// eslint-disable-next-line no-unused-vars
 const photoList = Array.from({ length: PHOTO_QUANTITY },  createPhoto);
+
