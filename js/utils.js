@@ -10,4 +10,7 @@ function getRandomPositiveInteger (a, b) {
   return Math.floor(result);
 }
 
-export {getRandomPositiveInteger};
+// Фунция принимает массив  и возвращает случайный элемент
+const getRandomArrayElement = (items) => items[getRandomPositiveInteger(0, items.length - 1)];
+
+export {getRandomPositiveInteger, getRandomArrayElement};

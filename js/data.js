@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger} from './utils';
+import {getRandomPositiveInteger, getRandomArrayElement} from './utils.js';
 
 const PHOTO_QUANTITY = 25;
 
@@ -42,9 +42,6 @@ const PHOTO_DESCRIPTIONS = [
   'Вот это поворот',
   'Офигенный зум'
 ];
-
-// Фунция принимает массив  и возвращает случайный элемент
-const getRandomArrayElement = (items) => items[getRandomPositiveInteger(0, items.length - 1)];
 
 // Функция создания текста комментариев
 const getCommentMessage = () => {
