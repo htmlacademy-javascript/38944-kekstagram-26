@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const checkStringLength = (str, maxLength) => typeof maxLength === 'number' && typeof str === 'string' && str.trim().length <= maxLength;
 
 function getRandomPositiveInteger (a, b) {
