@@ -67,7 +67,7 @@ const createCommentsList = () => Array.from({length: getRandomPositiveInteger(1,
 // Функция создания фото с комментариями
 const createPhoto = (value, index) => ({
   id: index + 1,
-  url: `/photos/${index + 1}.jpg`,
+  url: `photos/${index + 1}.jpg`,
   description: PHOTO_DESCRIPTIONS[getRandomPositiveInteger(1,PHOTO_DESCRIPTIONS.length -1)],
   likes: getRandomPositiveInteger(15, 200),
   comments: createCommentsList()
