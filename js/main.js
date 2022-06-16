@@ -1,2 +1,1 @@
-import './data-maker.js';
-
+import './gallery.js';
