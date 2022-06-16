@@ -1,4 +1,6 @@
 import {createPhotoList} from './data.js';
+import {showBigPhoto} from './big-photo.js';
+
 // Создаем массив временных данных
 const photos = createPhotoList();
 // Выбираем элемент, вутрь которого будем прибавлять созданные фото
@@ -21,6 +23,12 @@ photos.forEach((photo) => {
   likesElement.textContent = photo.likes;
   imgElement.src = photo.url;
   commentsElement.textContent = photo.comments.length;
+
+  // Добавляем обработчик на каждый элемент
+  photoElement.addEventListener('click', (e) => {
+    e.preventDefault();
+    showBigPhoto(photo);
+  });
 
   fragment.append(photoElement);
 });
