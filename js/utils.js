@@ -13,4 +13,19 @@ const getRandomPositiveInteger = (a, b) => {
 // Фунция принимает массив  и возвращает случайный элемент
 const getRandomArrayElement = (items) => items[getRandomPositiveInteger(0, items.length - 1)];
 
-export {getRandomPositiveInteger, getRandomArrayElement};
+const isArrayUnique = (elements) => {
+  const result = [];
+
+  elements.forEach((element) => {
+    if (!result.includes(element)) {
+      result.push(element);
+    }
+  });
+
+  return result.length === elements.length;
+};
+
+const isEscapeCode = (evt) => evt.code === 'Escape';
+
+
+export {getRandomPositiveInteger, getRandomArrayElement, isArrayUnique, isEscapeCode};

@@ -41,8 +41,8 @@ function onCancelButtonClick() {
 }
 
 // Функция для открытия/закрытия по Esc
-function onEscapeButtonClick(e) {
-  if (e.code === 'Escape') {
+function onEscapeButtonClick(evt) {
+  if (evt.code === 'Escape') {
     closePopup();
   }
 }

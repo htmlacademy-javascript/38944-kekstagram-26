@@ -25,8 +25,8 @@ photos.forEach((photo) => {
   commentsElement.textContent = photo.comments.length;
 
   // Добавляем обработчик на каждый элемент
-  photoElement.addEventListener('click', (e) => {
-    e.preventDefault();
+  photoElement.addEventListener('click', (evt) => {
+    evt.preventDefault();
     showBigPhoto(photo);
   });
 
