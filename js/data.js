@@ -62,7 +62,7 @@ const createComment = (value, index) => ({
 });
 
 // Создаем массив комметариев
-const createCommentsList = () => Array.from({length: getRandomPositiveInteger(1, 5)}, createComment);
+const createCommentsList = () => Array.from({length: getRandomPositiveInteger(1, 20)}, createComment);
 
 // Функция создания фото с комментариями
 const createPhoto = (value, index) => ({
