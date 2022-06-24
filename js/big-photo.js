@@ -1,3 +1,5 @@
+import {isEscapeCode} from './utils.js';
+
 const MIN_COMMENTS_COUNT = 5;
 const bigPhotoElement = document.querySelector('.big-picture');
 const cancelButtonElement = bigPhotoElement.querySelector('.big-picture__cancel');
@@ -59,7 +61,7 @@ const showBigPhoto  = (photo) => {
 
   // Функция для открытия/закрытия по Esc
   const  onEscapeButtonClick = (evt) =>  {
-    if (evt.code === 'Escape') {
+    if (isEscapeCode(evt)) {
       closePopup();
     }
   };

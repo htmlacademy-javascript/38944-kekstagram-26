@@ -5,15 +5,16 @@ import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
 const uploadPopupElement = document.querySelector('.img-upload__overlay') ;
 const uploadFileElement = document.querySelector('#upload-file');
 const uploadCancelElement = uploadPopupElement.querySelector('#upload-cancel');
-
 const formElement = document.querySelector('#upload-select-image');
+const hashtagsInputElement = document.querySelector('[name="hashtags"]');
+const commentTextareaElement = document.querySelector('[name="description"]');
 
 const onCancelButtonClick = () => {
   closePopup();
 };
 
 const onEscapeButtonDown = (evt) => {
-  if (isEscapeCode(evt)) {
+  if (isEscapeCode(evt) && document.activeElement !== hashtagsInputElement && document.activeElement !== commentTextareaElement) {
     closePopup();
   }
 };
