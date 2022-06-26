@@ -1,6 +1,7 @@
 import {isUploadFormValid} from './validator.js';
 import {isEscapeCode} from './utils.js';
 import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
+import './photo-effects.js';
 
 const uploadPopupElement = document.querySelector('.img-upload__overlay') ;
 const uploadFileElement = document.querySelector('#upload-file');
