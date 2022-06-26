@@ -1,18 +1,21 @@
 import {isUploadFormValid} from './validator.js';
 import {isEscapeCode} from './utils.js';
+import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
+import './photo-effects.js';
 
 const uploadPopupElement = document.querySelector('.img-upload__overlay') ;
 const uploadFileElement = document.querySelector('#upload-file');
 const uploadCancelElement = uploadPopupElement.querySelector('#upload-cancel');
-
 const formElement = document.querySelector('#upload-select-image');
+const hashtagsInputElement = document.querySelector('[name="hashtags"]');
+const commentTextareaElement = document.querySelector('[name="description"]');
 
 const onCancelButtonClick = () => {
   closePopup();
 };
 
 const onEscapeButtonDown = (evt) => {
-  if (isEscapeCode(evt)) {
+  if (isEscapeCode(evt) && document.activeElement !== hashtagsInputElement && document.activeElement !== commentTextareaElement) {
     closePopup();
   }
 };
@@ -23,6 +26,8 @@ const onInputChange = () => {
 
   document.addEventListener('keydown', onEscapeButtonDown);
   uploadCancelElement.addEventListener('click', onCancelButtonClick);
+
+  addScalingHandlers();
 };
 
 function closePopup () {
@@ -33,6 +38,8 @@ function closePopup () {
 
   uploadCancelElement.removeEventListener('click', onCancelButtonClick);
   document.removeEventListener('keydown', onEscapeButtonDown);
+
+  removeScalingHandlers();
 }
 
 const onFormSubmit = (evt) => {
@@ -50,4 +57,5 @@ const onFormSubmit = (evt) => {
 uploadFileElement.addEventListener('change', onInputChange);
 
 formElement.addEventListener('submit', onFormSubmit);
+
 
