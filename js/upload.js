@@ -3,6 +3,7 @@ import {isEscapeCode} from './utils.js';
 import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
 import {setDefaultScaling} from './scaling.js';
 import {changeEffect, removeEffectListHandler} from './photo-effects.js';
+import {renderSuccessPopup} from './success-popup.js';
 import './photo-effects.js';
 
 const uploadPopupElement = document.querySelector('.img-upload__overlay') ;
@@ -68,7 +69,8 @@ const onFormSubmit = (evt) => {
         method: 'POST',
         body: formData,
       })
-      .then(closePopup);
+      .then(closePopup)
+      .then(renderSuccessPopup);
 
   } else {
     // eslint-disable-next-line no-console
