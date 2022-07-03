@@ -4,6 +4,8 @@ import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
 import {setDefaultScaling} from './scaling.js';
 import {changeEffect, removeEffectListHandler} from './photo-effects.js';
 import {renderSuccessPopup} from './success-popup.js';
+import {renderErrorPopupUpload} from './error-popup.js';
+import {sendData} from './loader.js';
 import './photo-effects.js';
 
 const uploadPopupElement = document.querySelector('.img-upload__overlay') ;
@@ -54,30 +56,25 @@ function closePopup () {
 
   removeScalingHandlers();
 }
+
+const onSuccess = (response) => {
+  if (response.ok){
+    closePopup();
+    renderSuccessPopup();
+    return;
+  }
+  renderErrorPopupUpload();
+};
+
+const onError = () => {renderErrorPopupUpload();};
+
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   const isValid = isUploadFormValid();
   if (isValid) {
-    // eslint-disable-next-line no-console
-    console.log('Можно отправлять');
     const formData = new FormData(evt.target);
-
-    // TODO зеленая + красная плашка, добавить catch, вынести в loader.js (sendData(data, onSuccess, onError))
-    fetch(
-      'https://26.javascript.pages.academy/kekstagram',
-      {
-        method: 'POST',
-        body: formData,
-      })
-      .then(closePopup)
-      .then(renderSuccessPopup);
-
-  } else {
-    // eslint-disable-next-line no-console
-    console.log('Форма невалидна');
-  }
-};
-// };
+    sendData(formData, onSuccess, onError);
+  }};
 
 uploadFileElement.addEventListener('change', onInputChange);
 

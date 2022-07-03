@@ -5,4 +5,15 @@ const loadPhotos = (onSuccess, onError) => {
     .catch((err) => onError(err));
 };
 
-export {loadPhotos};
+const sendData = (formData, onSuccess, onError) => {
+  fetch(
+    'https://26.javascript.pages.academy/kekstagram',
+    {
+      method: 'POST',
+      body: formData,
+    })
+    .then(onSuccess)
+    .catch(onError);
+};
+
+export {loadPhotos, sendData};
