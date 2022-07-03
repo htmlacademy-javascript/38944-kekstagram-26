@@ -59,7 +59,10 @@ const createSlider = () => {
 const changeEffect = (effectValue) => {
   if(effectValue === 'none') {
     // удаляем слайдер и сбрасываем стили, если выбрано значение без эффектов
-    effectFieldsetElement.noUiSlider.destroy();
+    if (effectFieldsetElement.noUiSlider) {
+      effectFieldsetElement.noUiSlider.destroy();
+    }
+
     imagePreviewElement.style = '';
     imagePreviewElement.className = '';
     return;
@@ -92,9 +95,14 @@ const changeEffect = (effectValue) => {
   });
 };
 
-
-effectsListElement.addEventListener('change', (evt) => {
+const onEffectInputChange = (evt) => {
   changeEffect(evt.target.value);
-});
+};
 
+effectsListElement.addEventListener('change', onEffectInputChange);
 
+const removeEffectListHandler = () => {
+  effectsListElement.removeEventListener('change', onEffectInputChange);
+};
+
+export {changeEffect, removeEffectListHandler};

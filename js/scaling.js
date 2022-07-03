@@ -6,7 +6,6 @@ const controlSmallerElement = document.querySelector('.scale__control--smaller')
 const controlBiggerElement = document.querySelector('.scale__control--bigger');
 
 let currentValue = DEFAULT_SCALING_VALUE;
-scaleInputElement.value = `${currentValue}%`;
 
 const onDecreaseScalingButtonClick = () => {
   if (currentValue > 25) {
@@ -34,6 +33,10 @@ const removeScalingHandlers = () => {
   controlBiggerElement.removeEventListener('click', onIncreaseScalingButtonClick);
 };
 
+const setDefaultScalingValues = () => {
+  imagePreviewElement.style.transform = '';
+  scaleInputElement.value = `${DEFAULT_SCALING_VALUE}%`;
+};
 
-export {addScalingHandlers, removeScalingHandlers};
+export {addScalingHandlers, removeScalingHandlers, setDefaultScalingValues};
 
