@@ -4,8 +4,8 @@ import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
 import {setDefaultScaling} from './scaling.js';
 import {changeEffect, removeEffectListHandler} from './photo-effects.js';
 import {renderSuccessPopup} from './success-popup.js';
-import {renderErrorPopupUpload} from './error-popup.js';
-import {sendData} from './loader.js';
+import {renderUploadErrorPopup} from './error-popup.js';
+import {sendData} from './api.js';
 import './photo-effects.js';
 
 const uploadPopupElement = document.querySelector('.img-upload__overlay') ;
@@ -14,6 +14,8 @@ const uploadCancelElement = uploadPopupElement.querySelector('#upload-cancel');
 const formElement = document.querySelector('#upload-select-image');
 const hashtagsInputElement = document.querySelector('[name="hashtags"]');
 const commentTextareaElement = document.querySelector('[name="description"]');
+const isInputActive = document.activeElement !== hashtagsInputElement && document.activeElement !== commentTextareaElement;
+const buttonUploadElement = document.querySelector('.img-upload__submit');
 
 const resetForm = () => {
   formElement.reset();
@@ -27,7 +29,7 @@ const onCancelButtonClick = () => {
 };
 
 const onEscapeButtonDown = (evt) => {
-  if (isEscapeCode(evt) && document.activeElement !== hashtagsInputElement && document.activeElement !== commentTextareaElement) {
+  if (isEscapeCode(evt) && isInputActive) {
     resetForm();
     closePopup();
   }
@@ -58,23 +60,30 @@ function closePopup () {
 }
 
 const onSuccess = (response) => {
+  buttonUploadElement.disabled = false;
   if (response.ok){
     closePopup();
     renderSuccessPopup();
     return;
   }
-  renderErrorPopupUpload();
+  renderUploadErrorPopup();
 };
 
-const onError = () => {renderErrorPopupUpload();};
+const onError = () => {
+  buttonUploadElement.disabled = false;
+  renderUploadErrorPopup();
+};
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   const isValid = isUploadFormValid();
   if (isValid) {
+    buttonUploadElement.disabled = true;
     const formData = new FormData(evt.target);
     sendData(formData, onSuccess, onError);
-  }};
+  }
+
+};
 
 uploadFileElement.addEventListener('change', onInputChange);
 

@@ -1,7 +1,7 @@
 import {isEscapeCode} from './utils.js';
 const templateElement = document.querySelector('#error').content.querySelector('.error');
 
-const renderErrorPopupUpload = () => {
+const renderUploadErrorPopup = () => {
   const errorPopupUpload = templateElement.cloneNode(true);
   const errorButtonElement = errorPopupUpload.querySelector('.error__button');
 
@@ -38,20 +38,24 @@ const renderErrorPopupUpload = () => {
 };
 
 
-const renderErrorPopup = () => {
+const renderErrorMessage = () => {
   const errorPopup = document.createElement('div');
   errorPopup.textContent = 'Произошёл технический сбой. Пожалуйста попробуйте позже.';
   errorPopup.style.position = 'fixed';
-  errorPopup.style.height = '200px';
-  errorPopup.style.width = '100%';
-  errorPopup.style.top = '50%';
-  errorPopup.style.left = '50%';
-  errorPopup.style.transform = 'translate(-50%, -50%)';
+  errorPopup.style.height = '180px';
+  errorPopup.style.width = '430px';
+  errorPopup.style.top = '0';
+  errorPopup.style.right = '0';
+  // errorPopup.style.transform = 'translate(-50%, -50%)';
   errorPopup.style.backgroundColor = 'red';
   errorPopup.style.fontSize = '16px';
+  errorPopup.style.fontWeight = 'bold';
   errorPopup.style.textAlign = 'center';
-  errorPopup.style.padding = '85px';
+  errorPopup.style.lineHeight = '24px';
+  errorPopup.style.padding = '65px';
   document.body.append(errorPopup);
+  setTimeout (() => {errorPopup.remove();}, 5000);
 };
 
-export {renderErrorPopup, renderErrorPopupUpload};
+
+export {renderErrorMessage, renderUploadErrorPopup};
