@@ -33,10 +33,10 @@ const removeScalingHandlers = () => {
   controlBiggerElement.removeEventListener('click', onIncreaseScalingButtonClick);
 };
 
-const setDefaultScaling = () => {
+const setDefaultScalingValues = () => {
   imagePreviewElement.style.transform = '';
   scaleInputElement.value = `${DEFAULT_SCALING_VALUE}%`;
 };
 
-export {addScalingHandlers, removeScalingHandlers, setDefaultScaling};
+export {addScalingHandlers, removeScalingHandlers, setDefaultScalingValues};
 

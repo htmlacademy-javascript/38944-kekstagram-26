@@ -1,7 +1,7 @@
 import {isUploadFormValid} from './validator.js';
 import {isEscapeCode} from './utils.js';
 import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
-import {setDefaultScaling} from './scaling.js';
+import {setDefaultScalingValues} from './scaling.js';
 import {changeEffect, removeEffectListHandler} from './photo-effects.js';
 import {renderSuccessPopup} from './success-popup.js';
 import {renderUploadErrorPopup} from './error-popup.js';
@@ -19,7 +19,7 @@ const buttonUploadElement = document.querySelector('.img-upload__submit');
 
 const resetForm = () => {
   formElement.reset();
-  setDefaultScaling();
+  setDefaultScalingValues();
   changeEffect('none');
   removeEffectListHandler();
 };
@@ -39,7 +39,7 @@ const onInputChange = () => {
   uploadPopupElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  setDefaultScaling();
+  setDefaultScalingValues();
 
   document.addEventListener('keydown', onEscapeButtonDown);
   uploadCancelElement.addEventListener('click', onCancelButtonClick);
@@ -59,8 +59,12 @@ function closePopup () {
   removeScalingHandlers();
 }
 
+const setUploadButtonDisabled = (value) => {
+  buttonUploadElement.disabled = value;
+};
+
 const onSuccess = (response) => {
-  buttonUploadElement.disabled = false;
+  setUploadButtonDisabled(false);
   if (response.ok){
     closePopup();
     renderSuccessPopup();
@@ -70,7 +74,7 @@ const onSuccess = (response) => {
 };
 
 const onError = () => {
-  buttonUploadElement.disabled = false;
+  setUploadButtonDisabled(false);
   renderUploadErrorPopup();
 };
 
@@ -78,7 +82,7 @@ const onFormSubmit = (evt) => {
   evt.preventDefault();
   const isValid = isUploadFormValid();
   if (isValid) {
-    buttonUploadElement.disabled = true;
+    setUploadButtonDisabled(true);
     const formData = new FormData(evt.target);
     sendData(formData, onSuccess, onError);
   }

@@ -2,10 +2,10 @@ import {isEscapeCode} from './utils.js';
 const templateElement = document.querySelector ('#success').content.querySelector('.success');
 
 const renderSuccessPopup = () => {
-  const successPopup = templateElement.cloneNode(true);
-  const successButtonElement = successPopup.querySelector('.success__button');
+  const successPopupElement = templateElement.cloneNode(true);
+  const successButtonElement = successPopupElement.querySelector('.success__button');
 
-  document.body.append(successPopup);
+  document.body.append(successPopupElement);
 
   const onEscapeButtonPress = (evt) => {
     if(isEscapeCode(evt)){
@@ -13,7 +13,7 @@ const renderSuccessPopup = () => {
     }
   };
 
-  const onOutPopupClick = (evt) => {
+  const onBackdropClick = (evt) => {
     if (evt.target.closest('.success__inner')) {
       return;
     }
@@ -26,11 +26,11 @@ const renderSuccessPopup = () => {
 
   document.addEventListener('keydown', onEscapeButtonPress);
 
-  document.addEventListener('click', onOutPopupClick);
+  document.addEventListener('click', onBackdropClick);
 
   function closePopup() {
-    successPopup.remove();
-    document.removeEventListener('click', onOutPopupClick);
+    successPopupElement.remove();
+    document.removeEventListener('click', onBackdropClick);
     document.removeEventListener('keydown', onEscapeButtonPress);
   }
 };

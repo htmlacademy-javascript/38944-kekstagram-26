@@ -1,5 +1,4 @@
-// import {loadPhotos} from './api.js';
-// import {renderErrorMessage} from './error-popup.js';
+
 import {showBigPhoto} from './big-photo.js';
 
 // Выбираем элемент, вутрь которого будем прибавлять созданные фото
@@ -37,4 +36,4 @@ const renderPhotos = (photos) => {
 };
 
 export {renderPhotos};
-// loadPhotos(renderPhotos, renderErrorMessage);
+

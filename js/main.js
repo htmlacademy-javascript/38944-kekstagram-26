@@ -1,4 +1,3 @@
-import './gallery.js';
 import './upload.js';
 import {loadPhotos} from './api.js';
 import {renderErrorMessage} from './error-popup.js';
