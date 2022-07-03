@@ -14,7 +14,6 @@ const uploadCancelElement = uploadPopupElement.querySelector('#upload-cancel');
 const formElement = document.querySelector('#upload-select-image');
 const hashtagsInputElement = document.querySelector('[name="hashtags"]');
 const commentTextareaElement = document.querySelector('[name="description"]');
-const isInputActive = document.activeElement !== hashtagsInputElement && document.activeElement !== commentTextareaElement;
 const buttonUploadElement = document.querySelector('.img-upload__submit');
 
 const resetForm = () => {
@@ -29,7 +28,9 @@ const onCancelButtonClick = () => {
 };
 
 const onEscapeButtonDown = (evt) => {
-  if (isEscapeCode(evt) && isInputActive) {
+  const isInputActive = document.activeElement === hashtagsInputElement || document.activeElement === commentTextareaElement;
+
+  if (isEscapeCode(evt) && !isInputActive) {
     resetForm();
     closePopup();
   }

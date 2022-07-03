@@ -1,13 +1,13 @@
 import {isEscapeCode} from './utils.js';
-const errorPopupElement = document.querySelector('#error').content.querySelector('.error');
+const templateElement = document.querySelector('#error').content.querySelector('.error');
 
 const renderUploadErrorPopup = () => {
-  const errorPopupUpload = errorPopupElement.cloneNode(true);
-  const errorButtonElement = errorPopupUpload.querySelector('.error__button');
+  const errorPopupElement = templateElement.cloneNode(true);
+  const errorButtonElement = errorPopupElement.querySelector('.error__button');
 
-  errorPopupUpload.style.zIndex = '10';
+  errorPopupElement.style.zIndex = '10';
 
-  document.body.append(errorPopupUpload);
+  document.body.append(errorPopupElement);
 
   const onEscapeButtonPress = (evt) => {
     if(isEscapeCode(evt)){
@@ -31,7 +31,7 @@ const renderUploadErrorPopup = () => {
   document.addEventListener('click', onBackdropClick);
 
   function closePopup() {
-    errorPopupUpload.remove();
+    errorPopupElement.remove();
     document.removeEventListener('click', onBackdropClick);
     document.removeEventListener('keydown', onEscapeButtonPress);
   }
