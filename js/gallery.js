@@ -1,4 +1,4 @@
-import {filterPhotos} from './filterPhotos.js';
+import {filterPhotos} from './filters.js';
 import {showBigPhoto} from './big-photo.js';
 
 // Выбираем элемент, вутрь которого будем прибавлять созданные фото
