@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-const checkStringLength = (str, maxLength) => typeof maxLength === 'number' && typeof str === 'string' && str.trim().length <= maxLength;
-
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -9,9 +6,6 @@ const getRandomPositiveInteger = (a, b) => {
 
   return Math.floor(result);
 };
-
-// Фунция принимает массив  и возвращает случайный элемент
-const getRandomArrayElement = (items) => items[getRandomPositiveInteger(0, items.length - 1)];
 
 const isArrayUnique = (elements) => {
   const result = [];
@@ -23,40 +17,6 @@ const isArrayUnique = (elements) => {
   });
 
   return result.length === elements.length;
-};
-
-// Перемешивание массива
-
-const shuffle = (array) => {
-  const shuffleArray = array.slice();
-  let currentIndex = shuffleArray.length,  randomIndex;
-
-  while (currentIndex !== 0) {
-
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    [shuffleArray[currentIndex], shuffleArray[randomIndex]] = [
-      shuffleArray[randomIndex], shuffleArray[currentIndex]];
-  }
-
-  return shuffleArray;
-};
-
-// сортировка методом пузырька по убыванию
-const sortArray = (arr) => {
-  const len = arr.length;
-
-  for (let i = 0; i < len ; i++) {
-    for(let j = 0 ; j < len - i - 1; j++){
-      if (arr[j].likes > arr[j + 1].likes) {
-        const temp = arr[j];
-        arr[j] = arr[j+1];
-        arr[j + 1] = temp;
-      }
-    }
-  }
-  return arr.reverse();
 };
 
 const isEscapeCode = (evt) => evt.code === 'Escape';
@@ -82,4 +42,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export {getRandomPositiveInteger, getRandomArrayElement, isArrayUnique, isEscapeCode, debounce, shuffle, sortArray};
+export {getRandomPositiveInteger, isArrayUnique, isEscapeCode, debounce};
