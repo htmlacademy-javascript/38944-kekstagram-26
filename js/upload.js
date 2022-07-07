@@ -30,7 +30,7 @@ const setPhotoPreview = () => {
     const file = uploadFileElement.files[0];
     const fileName = file.name.toLowerCase();
 
-    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+    const matches = FILE_TYPES.some((type) => fileName.endsWith(type));
 
     if(matches) {
       previewElement.src = URL.createObjectURL(file);
