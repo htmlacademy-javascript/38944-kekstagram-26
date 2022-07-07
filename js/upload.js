@@ -2,7 +2,7 @@ import {isUploadFormValid} from './validator.js';
 import {isEscapeCode} from './utils.js';
 import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
 import {setDefaultScalingValues} from './scaling.js';
-import {changeEffect, removeEffectListHandler, addffectListHandler} from './photo-effects.js';
+import {changeEffect, removeEffectsListHandler, addEffectsListHandler} from './photo-effects.js';
 import {renderSuccessPopup} from './success-popup.js';
 import {renderUploadErrorPopup} from './error-popup.js';
 import {sendData} from './api.js';
@@ -23,10 +23,9 @@ const resetForm = () => {
   formElement.reset();
   setDefaultScalingValues();
   changeEffect('none');
-  removeEffectListHandler();
 };
 
-const uploadPreview = () => {
+const setPhotoPreview = () => {
   {
     const file = uploadFileElement.files[0];
     const fileName = file.name.toLowerCase();
@@ -57,14 +56,13 @@ const onInputChange = () => {
   document.body.classList.add('modal-open');
 
   setDefaultScalingValues();
+  addScalingHandlers();
+  addEffectsListHandler();
 
   document.addEventListener('keydown', onEscapeButtonDown);
   uploadCancelElement.addEventListener('click', onCancelButtonClick);
 
-  addScalingHandlers();
-  addffectListHandler();
-
-  uploadPreview();
+  setPhotoPreview();
 };
 
 function closePopup () {
@@ -76,6 +74,7 @@ function closePopup () {
   uploadCancelElement.removeEventListener('click', onCancelButtonClick);
   document.removeEventListener('keydown', onEscapeButtonDown);
 
+  removeEffectsListHandler();
   removeScalingHandlers();
 }
 
