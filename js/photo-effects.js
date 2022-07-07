@@ -99,10 +99,12 @@ const onEffectInputChange = (evt) => {
   changeEffect(evt.target.value);
 };
 
-effectsListElement.addEventListener('change', onEffectInputChange);
+const addffectListHandler = () => {
+  effectsListElement.addEventListener('change', onEffectInputChange);
+};
 
 const removeEffectListHandler = () => {
   effectsListElement.removeEventListener('change', onEffectInputChange);
 };
 
-export {changeEffect, removeEffectListHandler};
+export {changeEffect, removeEffectListHandler, addffectListHandler};
