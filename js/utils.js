@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-const checkStringLength = (str, maxLength) => typeof maxLength === 'number' && typeof str === 'string' && str.trim().length <= maxLength;
-
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -9,9 +6,6 @@ const getRandomPositiveInteger = (a, b) => {
 
   return Math.floor(result);
 };
-
-// Фунция принимает массив  и возвращает случайный элемент
-const getRandomArrayElement = (items) => items[getRandomPositiveInteger(0, items.length - 1)];
 
 const isArrayUnique = (elements) => {
   const result = [];
@@ -27,5 +21,25 @@ const isArrayUnique = (elements) => {
 
 const isEscapeCode = (evt) => evt.code === 'Escape';
 
+// Функция взята из интернета и доработана
+// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
 
-export {getRandomPositiveInteger, getRandomArrayElement, isArrayUnique, isEscapeCode};
+const debounce = (callback, timeoutDelay = 500) => {
+  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
+  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
+  let timeoutId;
+
+  return (...rest) => {
+    // Перед каждым новым вызовом удаляем предыдущий таймаут,
+    // чтобы они не накапливались
+    clearTimeout(timeoutId);
+
+    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+
+    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
+    // пока действие совершается чаще, чем переданная задержка timeoutDelay
+  };
+};
+
+export {getRandomPositiveInteger, isArrayUnique, isEscapeCode, debounce};
