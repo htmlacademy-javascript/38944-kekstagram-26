@@ -1,3 +1,5 @@
+import {HIDDEN_CLASS} from './constants.js';
+
 const imagePreviewElement = document.querySelector('.img-upload__preview img');
 const effectsListElement = document.querySelector('.effects');
 const effectFieldsetElement = document.querySelector('.effect-level');
@@ -59,6 +61,14 @@ const createSlider = () => {
   noUiSlider.create(effectFieldsetElement, defaultSliderOptions);
 };
 
+const hideBar = () => {
+  effectFieldsetElement.classList.add(HIDDEN_CLASS);
+};
+
+const showBar = () => {
+  effectFieldsetElement.classList.remove(HIDDEN_CLASS);
+};
+
 const changeEffect = (effectValue) => {
   if(effectValue === 'none') {
     // удаляем слайдер и сбрасываем стили, если выбрано значение без эффектов
@@ -68,6 +78,7 @@ const changeEffect = (effectValue) => {
 
     imagePreviewElement.style = '';
     imagePreviewElement.className = '';
+    hideBar();
     return;
   }
 
@@ -75,6 +86,8 @@ const changeEffect = (effectValue) => {
   if (!effectFieldsetElement.noUiSlider) {
     createSlider();
   }
+
+  showBar();
 
   const { min, max, step, unit, filter } = effectOptions[effectValue];
 
@@ -111,5 +124,7 @@ const removeEffectHandler = () => {
 const setDefaultEffect = () => {
   changeEffect('none');
 };
+
+setDefaultEffect();
 
 export {setDefaultEffect, removeEffectHandler, addEffectHandler};
