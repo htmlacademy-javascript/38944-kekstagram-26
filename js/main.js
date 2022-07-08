@@ -7,7 +7,6 @@ import {debounce} from './utils.js';
 
 const RERENDER_DELAY = 500;
 
-debounce ();
 loadPhotos((photos) => {
   renderPhotos(photos);
   showFilters();

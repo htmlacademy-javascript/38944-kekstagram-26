@@ -1,12 +1,14 @@
-import {isUploadFormValid} from './validator.js';
+import {isUploadFormValid} from './validation.js';
 import {isEscapeCode} from './utils.js';
 import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
 import {setDefaultScalingValues} from './scaling.js';
-import {changeEffect, removeEffectListHandler} from './photo-effects.js';
+import {setDefaultEffect, removeEffectHandler, addEffectHandler} from './photo-effects.js';
 import {renderSuccessPopup} from './success-popup.js';
 import {renderUploadErrorPopup} from './error-popup.js';
 import {sendData} from './api.js';
-import './photo-effects.js';
+import {HIDDEN_CLASS, MODAL_OPEN_CLASS} from './constants.js';
+
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const uploadPopupElement = document.querySelector('.img-upload__overlay') ;
 const uploadFileElement = document.querySelector('#upload-file');
@@ -15,19 +17,32 @@ const formElement = document.querySelector('#upload-select-image');
 const hashtagsInputElement = document.querySelector('[name="hashtags"]');
 const commentTextareaElement = document.querySelector('[name="description"]');
 const buttonUploadElement = document.querySelector('.img-upload__submit');
+const previewElement = document.querySelector('.img-upload__preview img');
 
 const resetForm = () => {
   formElement.reset();
   setDefaultScalingValues();
-  changeEffect('none');
-  removeEffectListHandler();
+  setDefaultEffect();
+};
+
+const setPhotoPreview = () => {
+  {
+    const file = uploadFileElement.files[0];
+    const fileName = file.name.toLowerCase();
+
+    const matches = FILE_TYPES.some((type) => fileName.endsWith(type));
+
+    if(matches) {
+      previewElement.src = URL.createObjectURL(file);
+    }
+  }
 };
 
 const onCancelButtonClick = () => {
   closePopup();
 };
 
-const onEscapeButtonDown = (evt) => {
+const onEscapeButtonPress = (evt) => {
   const isInputActive = document.activeElement === hashtagsInputElement || document.activeElement === commentTextareaElement;
 
   if (isEscapeCode(evt) && !isInputActive) {
@@ -37,26 +52,29 @@ const onEscapeButtonDown = (evt) => {
 };
 
 const onInputChange = () => {
-  uploadPopupElement.classList.remove('hidden');
-  document.body.classList.add('modal-open');
+  uploadPopupElement.classList.remove(HIDDEN_CLASS);
+  document.body.classList.add(MODAL_OPEN_CLASS);
 
   setDefaultScalingValues();
+  addScalingHandlers();
+  addEffectHandler();
 
-  document.addEventListener('keydown', onEscapeButtonDown);
+  document.addEventListener('keydown', onEscapeButtonPress);
   uploadCancelElement.addEventListener('click', onCancelButtonClick);
 
-  addScalingHandlers();
+  setPhotoPreview();
 };
 
 function closePopup () {
-  uploadPopupElement.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+  uploadPopupElement.classList.add(HIDDEN_CLASS);
+  document.body.classList.remove(MODAL_OPEN_CLASS);
 
   resetForm();
 
   uploadCancelElement.removeEventListener('click', onCancelButtonClick);
-  document.removeEventListener('keydown', onEscapeButtonDown);
+  document.removeEventListener('keydown', onEscapeButtonPress);
 
+  removeEffectHandler();
   removeScalingHandlers();
 }
 
@@ -87,7 +105,6 @@ const onFormSubmit = (evt) => {
     const formData = new FormData(evt.target);
     sendData(formData, onSuccess, onError);
   }
-
 };
 
 uploadFileElement.addEventListener('change', onInputChange);

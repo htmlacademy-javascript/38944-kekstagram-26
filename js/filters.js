@@ -9,7 +9,6 @@ const FilterId = {
   DISCUSSED: 'filter-discussed',
 };
 
-
 const filtersElement = document.querySelector('.img-filters');
 const formElement = filtersElement.querySelector('.img-filters__form');
 

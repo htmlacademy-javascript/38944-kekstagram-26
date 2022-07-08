@@ -1,9 +1,7 @@
 import {filterPhotos} from './filters.js';
 import {showBigPhoto} from './big-photo.js';
 
-// Выбираем элемент, вутрь которого будем прибавлять созданные фото
 const picturesElement = document.querySelector('.pictures');
-// Выбираем элемень из template, который будем копировать
 const templateElement = document.querySelector('#picture').content.querySelector('.picture');
 
 const clearPicturesList = () => {
