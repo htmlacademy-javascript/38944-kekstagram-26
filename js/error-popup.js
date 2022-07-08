@@ -1,4 +1,5 @@
 import {isEscapeCode} from './utils.js';
+
 const templateElement = document.querySelector('#error').content.querySelector('.error');
 
 const renderUploadErrorPopup = () => {

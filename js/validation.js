@@ -1,4 +1,6 @@
-import {isArrayUnique} from './utils.js';
+import {isElementsUnique} from './utils.js';
+
+const MAX_COUNT_HASHTAGS = 5;
 
 const formElement = document.querySelector('#upload-select-image');
 const hashtagsInput = formElement.querySelector('[name="hashtags"]');
@@ -16,10 +18,11 @@ pristine.addValidator(hashtagsInput, (value) => {
   // Каждый элемент массива дожен проходить regExp.test()
   const isEveryHashtagValid = hashtags.every((item) => regExp.test(item));
   // Один и тот же хэш-тег не может быть использован дважды; - надо проверить массив на уникальность элементов
-  const isHashtagsUnique = isArrayUnique(hashtags);
+  const isHashtagsUnique = isElementsUnique(hashtags);
   // Нельзя указать больше пяти хэш-тегов; - надо проверить массив на длину
-  return isEveryHashtagValid && isHashtagsUnique && hashtags.length <= 5;
+  return isEveryHashtagValid && isHashtagsUnique && hashtags.length <= MAX_COUNT_HASHTAGS;
 }, 'Поле заполнено неверно');
 
 const isUploadFormValid = () => pristine.validate();
+
 export {isUploadFormValid};

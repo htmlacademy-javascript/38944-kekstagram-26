@@ -3,57 +3,60 @@ const effectsListElement = document.querySelector('.effects');
 const effectFieldsetElement = document.querySelector('.effect-level');
 const effectValueElement = document.querySelector('.effect-level__value');
 
-const FILTER_NAME = {
-  'chrome': 'grayscale',
-  'sepia': 'sepia',
-  'marvin': 'invert',
-  'phobos': 'blur',
-  'heat': 'brightness'
-};
-
-const RANGE_OPTIONS = {
-  'grayscale': {
+const effectOptions = {
+  'chrome': {
+    filter: 'grayscale',
     min: 0,
     max: 1,
-    step: 0.1
+    step: 0.1,
+    unit: ''
   },
   'sepia': {
+    filter: 'sepia',
     min: 0,
     max: 1,
-    step: 0.1
+    step: 0.1,
+    unit: ''
   },
-  'invert': {
+  'marvin': {
+    filter: 'invert',
     min: 0,
     max: 100,
-    step: 1
+    step: 1,
+    unit: '%'
   },
-  'blur': {
+  'phobos': {
+    filter: 'blur',
     min: 0,
     max: 3,
-    step: 0.1
+    step: 0.1,
+    unit: 'px'
   },
-  'brightness': {
+  'heat': {
+    filter: 'brightness',
     min: 1,
     max: 3,
-    step: 0.1
+    step: 0.1,
+    unit: ''
   },
 };
 
-const UNIT = {
-  'invert': '%',
-  'blur': 'px',
+const defaultSliderOptions = {
+  range: {
+    min: 0,
+    max: 100
+  },
+  start: 100,
+  step: 1,
+  level: 'lower',
+  format: {
+    to: (value) => value,
+    from: (value) => parseFloat(value),
+  },
 };
 
 const createSlider = () => {
-  noUiSlider.create(effectFieldsetElement, {
-    range: {
-      min: 0,
-      max: 100
-    },
-    start: 100,
-    step: 1,
-    level: 'lower',
-  });
+  noUiSlider.create(effectFieldsetElement, defaultSliderOptions);
 };
 
 const changeEffect = (effectValue) => {
@@ -73,9 +76,7 @@ const changeEffect = (effectValue) => {
     createSlider();
   }
 
-  const effect = FILTER_NAME[effectValue];
-  const { min, max, step } = RANGE_OPTIONS[effect];
-  const unit = UNIT[effect] || '';
+  const { min, max, step, unit, filter } = effectOptions[effectValue];
 
   imagePreviewElement.className = '';
   imagePreviewElement.classList.add(`effects__preview--${effectValue}`);
@@ -91,7 +92,7 @@ const changeEffect = (effectValue) => {
 
   effectFieldsetElement.noUiSlider.on('update', () => {
     effectValueElement.value = effectFieldsetElement.noUiSlider.get();
-    imagePreviewElement.style.filter =  `${effect}(${effectValueElement.value}${unit})`;
+    imagePreviewElement.style.filter =  `${filter}(${effectValueElement.value}${unit})`;
   });
 };
 
@@ -99,12 +100,16 @@ const onEffectInputChange = (evt) => {
   changeEffect(evt.target.value);
 };
 
-const addEffectsListHandler = () => {
+const addEffectHandler = () => {
   effectsListElement.addEventListener('change', onEffectInputChange);
 };
 
-const removeEffectsListHandler = () => {
+const removeEffectHandler = () => {
   effectsListElement.removeEventListener('change', onEffectInputChange);
 };
 
-export {changeEffect, removeEffectsListHandler, addEffectsListHandler};
+const setDefaultEffect = () => {
+  changeEffect('none');
+};
+
+export {setDefaultEffect, removeEffectHandler, addEffectHandler};

@@ -1,4 +1,5 @@
 const DEFAULT_SCALING_VALUE = 100;
+const SCALING_STEP = 25;
 
 const scaleInputElement = document.querySelector('.scale__control--value');
 const imagePreviewElement = document.querySelector('.img-upload__preview img');
@@ -8,16 +9,16 @@ const controlBiggerElement = document.querySelector('.scale__control--bigger');
 let currentValue = DEFAULT_SCALING_VALUE;
 
 const onDecreaseScalingButtonClick = () => {
-  if (currentValue > 25) {
-    currentValue -= 25;
+  if (currentValue > SCALING_STEP) {
+    currentValue -= SCALING_STEP;
     scaleInputElement.value = `${currentValue}%`;
     imagePreviewElement.style.transform = `scale(${currentValue * 0.01})`;
   }
 };
 
 const onIncreaseScalingButtonClick = () => {
-  if (currentValue < 100) {
-    currentValue += 25;
+  if (currentValue < DEFAULT_SCALING_VALUE) {
+    currentValue += SCALING_STEP;
     scaleInputElement.value = `${currentValue}%`;
     imagePreviewElement.style.transform = `scale(${currentValue * 0.01})`;
   }
@@ -36,6 +37,7 @@ const removeScalingHandlers = () => {
 const setDefaultScalingValues = () => {
   imagePreviewElement.style.transform = '';
   scaleInputElement.value = `${DEFAULT_SCALING_VALUE}%`;
+  currentValue = DEFAULT_SCALING_VALUE;
 };
 
 export {addScalingHandlers, removeScalingHandlers, setDefaultScalingValues};

@@ -1,6 +1,8 @@
 import {isEscapeCode} from './utils.js';
+import {MODAL_OPEN_CLASS, HIDDEN_CLASS} from './constants.js';
 
 const MIN_COMMENTS_COUNT = 5;
+
 const bigPhotoElement = document.querySelector('.big-picture');
 const cancelButtonElement = bigPhotoElement.querySelector('.big-picture__cancel');
 const commentsListElement = document.querySelector('.social__comments');
@@ -21,7 +23,7 @@ const showBigPhoto  = (photo) => {
     currentCommentsCountElement.textContent = `${currentCount} из ${allCommentsCount} комметариев`;
 
     if (currentCount >= allCommentsCount ) {
-      loadMoreCommentsElement.classList.add('hidden');
+      loadMoreCommentsElement.classList.add(HIDDEN_CLASS);
       loadMoreCommentsElement.removeEventListener('click', onLoadMoreButtonClick);
     }
 
@@ -60,7 +62,7 @@ const showBigPhoto  = (photo) => {
   };
 
   // Функция для открытия/закрытия по Esc
-  const  onEscapeButtonClick = (evt) =>  {
+  const  onEscapeButtonPress = (evt) =>  {
     if (isEscapeCode(evt)) {
       closePopup();
     }
@@ -68,22 +70,22 @@ const showBigPhoto  = (photo) => {
 
   // Функция открытия модального окна
   const openPopup = () => {
-    document.body.classList.add('modal-open');
-    bigPhotoElement.classList.remove('hidden');
+    document.body.classList.add(MODAL_OPEN_CLASS);
+    bigPhotoElement.classList.remove(HIDDEN_CLASS);
     // Добавляем обработчики
     cancelButtonElement.addEventListener('click', onCancelButtonClick);
-    document.addEventListener('keydown', onEscapeButtonClick);
+    document.addEventListener('keydown', onEscapeButtonPress);
     loadMoreCommentsElement.addEventListener('click', onLoadMoreButtonClick);
   };
 
   // Функция закрытия модального окна
   function closePopup () {
-    document.body.classList.remove('modal-open');
-    bigPhotoElement.classList.add('hidden');
-    loadMoreCommentsElement.classList.remove('hidden');
+    document.body.classList.remove(MODAL_OPEN_CLASS);
+    bigPhotoElement.classList.add(HIDDEN_CLASS);
+    loadMoreCommentsElement.classList.remove(HIDDEN_CLASS);
     // Убираем обработчики
     cancelButtonElement.removeEventListener('click', onCancelButtonClick);
-    document.removeEventListener('keydown', onEscapeButtonClick);
+    document.removeEventListener('keydown', onEscapeButtonPress);
     loadMoreCommentsElement.removeEventListener('click', onLoadMoreButtonClick);
   }
 

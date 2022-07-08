@@ -1,12 +1,12 @@
-import {isUploadFormValid} from './validator.js';
+import {isUploadFormValid} from './validation.js';
 import {isEscapeCode} from './utils.js';
 import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
 import {setDefaultScalingValues} from './scaling.js';
-import {changeEffect, removeEffectsListHandler, addEffectsListHandler} from './photo-effects.js';
+import {setDefaultEffect, removeEffectHandler, addEffectHandler} from './photo-effects.js';
 import {renderSuccessPopup} from './success-popup.js';
 import {renderUploadErrorPopup} from './error-popup.js';
 import {sendData} from './api.js';
-import './photo-effects.js';
+import {HIDDEN_CLASS, MODAL_OPEN_CLASS} from './constants.js';
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
@@ -22,7 +22,7 @@ const previewElement = document.querySelector('.img-upload__preview img');
 const resetForm = () => {
   formElement.reset();
   setDefaultScalingValues();
-  changeEffect('none');
+  setDefaultEffect();
 };
 
 const setPhotoPreview = () => {
@@ -42,7 +42,7 @@ const onCancelButtonClick = () => {
   closePopup();
 };
 
-const onEscapeButtonDown = (evt) => {
+const onEscapeButtonPress = (evt) => {
   const isInputActive = document.activeElement === hashtagsInputElement || document.activeElement === commentTextareaElement;
 
   if (isEscapeCode(evt) && !isInputActive) {
@@ -52,29 +52,29 @@ const onEscapeButtonDown = (evt) => {
 };
 
 const onInputChange = () => {
-  uploadPopupElement.classList.remove('hidden');
-  document.body.classList.add('modal-open');
+  uploadPopupElement.classList.remove(HIDDEN_CLASS);
+  document.body.classList.add(MODAL_OPEN_CLASS);
 
   setDefaultScalingValues();
   addScalingHandlers();
-  addEffectsListHandler();
+  addEffectHandler();
 
-  document.addEventListener('keydown', onEscapeButtonDown);
+  document.addEventListener('keydown', onEscapeButtonPress);
   uploadCancelElement.addEventListener('click', onCancelButtonClick);
 
   setPhotoPreview();
 };
 
 function closePopup () {
-  uploadPopupElement.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+  uploadPopupElement.classList.add(HIDDEN_CLASS);
+  document.body.classList.remove(MODAL_OPEN_CLASS);
 
   resetForm();
 
   uploadCancelElement.removeEventListener('click', onCancelButtonClick);
-  document.removeEventListener('keydown', onEscapeButtonDown);
+  document.removeEventListener('keydown', onEscapeButtonPress);
 
-  removeEffectsListHandler();
+  removeEffectHandler();
   removeScalingHandlers();
 }
 
@@ -105,7 +105,6 @@ const onFormSubmit = (evt) => {
     const formData = new FormData(evt.target);
     sendData(formData, onSuccess, onError);
   }
-
 };
 
 uploadFileElement.addEventListener('change', onInputChange);

@@ -7,7 +7,7 @@ const getRandomPositiveInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const isArrayUnique = (elements) => {
+const isElementsUnique = (elements) => {
   const result = [];
 
   elements.forEach((element) => {
@@ -23,7 +23,6 @@ const isEscapeCode = (evt) => evt.code === 'Escape';
 
 // Функция взята из интернета и доработана
 // Источник - https://www.freecodecamp.org/news/javascript-debounce-example
-
 const debounce = (callback, timeoutDelay = 500) => {
   // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
   // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
@@ -42,4 +41,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export {getRandomPositiveInteger, isArrayUnique, isEscapeCode, debounce};
+export {getRandomPositiveInteger, isElementsUnique, isEscapeCode, debounce};
