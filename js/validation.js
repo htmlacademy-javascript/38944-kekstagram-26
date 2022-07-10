@@ -25,4 +25,8 @@ pristine.addValidator(hashtagsInput, (value) => {
 
 const isUploadFormValid = () => pristine.validate();
 
-export {isUploadFormValid};
+const resetValidation = () => {
+  pristine.reset();
+};
+
+export {isUploadFormValid, resetValidation};
