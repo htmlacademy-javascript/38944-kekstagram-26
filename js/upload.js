@@ -1,4 +1,4 @@
-import {isUploadFormValid} from './validation.js';
+import {isUploadFormValid, resetValidation} from './validation.js';
 import {isEscapeCode} from './utils.js';
 import {addScalingHandlers, removeScalingHandlers} from './scaling.js';
 import {setDefaultScalingValues} from './scaling.js';
@@ -23,6 +23,7 @@ const resetForm = () => {
   formElement.reset();
   setDefaultScalingValues();
   setDefaultEffect();
+  resetValidation();
 };
 
 const setPhotoPreview = () => {
@@ -46,7 +47,6 @@ const onEscapeButtonPress = (evt) => {
   const isInputActive = document.activeElement === hashtagsInputElement || document.activeElement === commentTextareaElement;
 
   if (isEscapeCode(evt) && !isInputActive) {
-    resetForm();
     closePopup();
   }
 };
